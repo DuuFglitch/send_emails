@@ -43,66 +43,64 @@ def enviar_email():
         </body>
         </html>""")
 
-    # Listas de destinatários
-    destinatarios_bcc = ['financeiro@plenumsistemas.com.br,padariabiopao@gmail.com,letrigalle@gmail.com,financeiromotelfantasy1@gmail.com, financeiromoteisfantasy@gmail.com, fiscal.frigolucio@gmail.com, grupo.padalitamary20@yahoo.com,  administrativo.ribeiraodasneves@apaemg.org.br,diretoria@hotel7colinas.com.br,controladoria@hotel7colinas.com.br,hmfdistribuidora@hotmail.com,frigocampos1@gmail.com,anderson@3campos.com.br,financeiro@3campos.com.br']# Substitua pelos e-mails reais
-    destinatarios_principais = ['contabil03@contabilidaderc.com,']
-    destinatarios_cc = ['fabio@contabilidaderc.com']
-    #destinatarios_bcc = ['danielbessaribeiro@hotmail.com,danielbessaribeirouber@hotmail.com']
+    destinatarios_bcc = [ 'destinatarios em copia oculta' ]
+    destinatarios_principais = ['envio principal']
+    destinatarios_cc = ['destinatarios em copia']
 
     try:
-        # Criar a mensagem de e-mail
+    
         msg = MIMEMultipart()
         msg['Subject'] = assunto
-        msg['From'] = 'contabil03@contabilidaderc.com'  # Substitua pelo seu e-mail
-        msg['To'] = ', '.join(destinatarios_principais)  # Define o(s) destinatário(s) principal(is)
+        msg['From'] = 'seu email' 
+        msg['To'] = ', '.join(destinatarios_principais)  
         msg['Cc'] = ', '.join(destinatarios_cc)
         msg['Bcc'] = ','.join(destinatarios_bcc)
-        # Adicionar o corpo do e-mail como HTML
+    
         corpo = MIMEText(corpo_email, 'html', 'utf-8')
         msg.attach(corpo)
 
-        # Conectar ao servidor SMTP
-        s = smtplib.SMTP('mail.contabilidaderc.lan', 587)
-        s.starttls()  # Inicializar a conexão TLS
+     
+        s = smtplib.SMTP('servidor do email', 587)
+        s.starttls()  
 
-        # Fazer o login
-        password = 'Contabilidade123456@#*'  # Substitua pela sua senha
+      
+        password = senha do email  
         s.login(msg['From'], password)
 
-        # Enviar o e-mail com destinatários em To, CC e BCC
+   
         destinatarios = destinatarios_principais + destinatarios_cc + destinatarios_bcc
         s.sendmail(msg['From'], destinatarios, msg.as_string())
         s.quit()
 
-        # Exibir mensagem de sucesso
+      
         messagebox.showinfo("Sucesso", "Email enviado com sucesso!")
 
-        # Fechar a janela do Tkinter após o sucesso
+        
         root.quit()
 
     except Exception as e:
-        # Exibir mensagem de erro usando Tkinter
+     
         messagebox.showerror("Erro", f"Falha ao enviar o e-mail: {str(e)}")
 
-# Configuração do Tkinter
+
 root = Tk()
 root.title("Envio de E-mail")
 
-# Variáveis do Tkinter
+
 mes_var = StringVar(root)
-mes_var.set("Janeiro")  # Valor inicial do mês
+mes_var.set("Janeiro") 
 
 tipo_email_var = StringVar(root)
-tipo_email_var.set("EMAIL 1 - Antes do dia 10")  # Valor inicial do tipo de e-mail
+tipo_email_var.set("EMAIL 1 - Antes do dia 10") 
 
-# Lista de meses
+
 meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", 
          "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
-# Lista de tipos de e-mail
+
 tipos_email = ["EMAIL 1 - Antes do dia 10", "EMAIL 2 - Após o dia 10"]
 
-# Widgets do Tkinter
+
 label_mes = Label(root, text="Selecione o mês:")
 label_mes.pack()
 
